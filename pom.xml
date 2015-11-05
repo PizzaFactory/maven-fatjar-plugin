@@ -1,16 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.apache.maven.plugins</groupId>
+  <groupId>jp.pizzafactory.maven</groupId>
   <artifactId>maven-fatjar-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.1.0</version>
-  <name>maven-fatjar-plugin Maven Mojo</name>
-  <url>http://code.google.com/p/maven-fatjar-plugin/</url>
-  
-  <properties>
-  	<repoBaseUrl>http://localhost:8081/nexus/content/repositories</repoBaseUrl>
-  </properties>
+  <version>1.1.1-SNAPSHOT</version>
+  <name>fatjar-maven-plugin Maven Mojo</name>
+  <url>http://github.com/pizzafactory/maven-fatjar-plugin/</url>
   
   <dependencies>
     <dependency>
@@ -50,30 +46,41 @@
   </build>
   
   <distributionManagement>
-	  <repository>
+	  <snapshotRepository>
 	    <id>nexus</id>
-	    <url>${repoBaseUrl}/releases</url>
-	  </repository>
+	    <url>http://builder.monami-ya.com:8080/nexus/content/repositories/snapshots/</url>
+	  </snapshotRepository>
   </distributionManagement>
   
   <developers>
-  	<developer>
-  		<id>ychao</id>
-  		<name>杨超</name>
-  		<email>ychao@bankcomm.com</email>
-  		<url>http://www.bankcomm.com</url>
-  		<organization>bankcomm</organization>
-  		<organizationUrl>http://www.bankcomm.com</organizationUrl>
+	<developer>
+		<id>monaka</id>
+		<name>Masaki Muranaka</name>
+		<email>monaka@monami-ya.com</email>
+		<organization>PizzaFactory Project / Monami-ya LLC</organization>
+		<organizationUrl>http://www.pizzafactory.jp/</organizationUrl>
   		<roles>
-  		</roles>
-  	</developer>
+			<role>Developer</role>
+		</roles>
+	</developer>
+	<developer>
+		<id>ychao</id>
+		<name>杨超</name>
+		<email>ychao@bankcomm.com</email>
+		<url>http://www.bankcomm.com</url>
+		<organization>bankcomm</organization>
+		<organizationUrl>http://www.bankcomm.com</organizationUrl>
+		<roles>
+			<role>Original author</role>
+		</roles>
+	</developer>
   </developers>
   <organization>
-  	<name>googlecode</name>
-  	<url>http://code.google.com</url>
+  	<name>PizzaFactory Project</name>
+  	<url>http://www.pizzafactory.jp</url>
   </organization>
   <issueManagement>
-  	<url>http://code.google.com/p/maven-fatjar-plugin/issue/list</url>
+	  <url>https://github.com/PizzaFactory/maven-fatjar-plugin/issues</url>
   </issueManagement>
 
 </project>
