@@ -12,6 +12,7 @@ import java.io.File;
 
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.archiver.MavenArchiver;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -66,6 +67,14 @@ public abstract class AbstractJarMojo extends AbstractMojo {
 	 * @required
 	 */
 	protected JarArchiver jarArchiver;
+
+	/**
+	 * The Maven session.
+	 *
+	 * @parameter role="${session}"
+	 * @readonly
+	 */
+	protected MavenSession session;
 
 	/**
 	 * The Maven project.
@@ -200,7 +209,7 @@ public abstract class AbstractJarMojo extends AbstractMojo {
 				archive.setManifestFile(existingManifest);
 			}
 
-			archiver.createArchive(project, archive);
+			archiver.createArchive(session, project, archive);
 
 			return jarFile;
 		} catch (Exception e) {
