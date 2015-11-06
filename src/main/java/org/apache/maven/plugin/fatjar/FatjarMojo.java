@@ -28,14 +28,14 @@ public class FatjarMojo extends AbstractJarMojo {
 	/**
 	 * Local maven repository.
 	 * 
-	 * @parameter expression="${localRepository}"
+	 * @parameter role="${localRepository}"
 	 * @required
 	 * @readonly
 	 */
 	private ArtifactRepository localRepository;
 
 	/**
-	 * @parameter expression="${project.build.outputDirectory}"
+	 * @parameter role="${project.build.outputDirectory}"
 	 */
 	private File classesDirectory;
 
@@ -48,24 +48,24 @@ public class FatjarMojo extends AbstractJarMojo {
 	private String classifier = "fatjar";
 
 	/**
-	 * @parameter expression="${fatjar.classpathPrefix}"
+	 * @parameter role="${fatjar.classpathPrefix}"
 	 */
 	private String classpathPrefix = "";
 
 	/**
-	 * @parameter expression="${fatjar.mainClass}"
+	 * @parameter role="${fatjar.mainClass}"
 	 */
 	private String mainClass;
 
 	private final static String BOOT_MAIN_CLASS = "org.inframesh.bootjar.Boot";
 
 	/**
-	 * @parameter expression="${fatjar.bootable}"
+	 * @parameter role="${fatjar.bootable}"
 	 */
 	private boolean bootable = false;
 
 	/**
-	 * @parameter expression="${fatjar.deployDirectory}"
+	 * @parameter role="${fatjar.deployDirectory}"
 	 */
 	private File deployDirectory;
 

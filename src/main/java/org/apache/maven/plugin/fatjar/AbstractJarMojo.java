@@ -44,7 +44,7 @@ public abstract class AbstractJarMojo extends AbstractMojo {
 	/**
 	 * Directory containing the generated JAR.
 	 * 
-	 * @parameter expression="${project.build.directory}"
+	 * @parameter role="${project.build.directory}"
 	 * @required
 	 */
 	protected File outputDirectory;
@@ -52,7 +52,7 @@ public abstract class AbstractJarMojo extends AbstractMojo {
 	/**
 	 * Name of the generated JAR.
 	 * 
-	 * @parameter alias="jarName" expression="${jar.finalName}"
+	 * @parameter alias="jarName" role="${jar.finalName}"
 	 *            default-value="${project.build.finalName}"
 	 * @required
 	 */
@@ -62,7 +62,7 @@ public abstract class AbstractJarMojo extends AbstractMojo {
 	 * The Jar archiver.
 	 * 
 	 * @parameter 
-	 *            expression="${component.org.codehaus.plexus.archiver.Archiver#jar}"
+	 *            role="${component.org.codehaus.plexus.archiver.Archiver}" roleHint="jar"
 	 * @required
 	 */
 	protected JarArchiver jarArchiver;
@@ -70,7 +70,7 @@ public abstract class AbstractJarMojo extends AbstractMojo {
 	/**
 	 * The Maven project.
 	 * 
-	 * @parameter expression="${project}"
+	 * @parameter role="${project}"
 	 * @required
 	 * @readonly
 	 */
@@ -92,7 +92,7 @@ public abstract class AbstractJarMojo extends AbstractMojo {
 	 * <code>useDefaultManifestFile</code> is set to <code>true</code>.
 	 * 
 	 * @parameter 
-	 *            expression="${project.build.outputDirectory}/META-INF/MANIFEST.MF"
+	 *            role="${project.build.outputDirectory}/META-INF/MANIFEST.MF"
 	 * @required
 	 * @readonly
 	 * @since 2.2
@@ -103,7 +103,7 @@ public abstract class AbstractJarMojo extends AbstractMojo {
 	 * Set this to <code>true</code> to enable the use of the
 	 * <code>defaultManifestFile</code>.
 	 * 
-	 * @parameter expression="${jar.useDefaultManifestFile}"
+	 * @parameter role="${jar.useDefaultManifestFile}"
 	 *            default-value="false"
 	 * 
 	 * @since 2.2
@@ -118,7 +118,7 @@ public abstract class AbstractJarMojo extends AbstractMojo {
 	/**
 	 * Whether creating the archive should be forced.
 	 * 
-	 * @parameter expression="${jar.forceCreation}" default-value="false"
+	 * @parameter role="${jar.forceCreation}" default-value="false"
 	 */
 	protected boolean forceCreation;
 
