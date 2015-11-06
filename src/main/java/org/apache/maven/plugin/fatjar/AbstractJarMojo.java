@@ -4,7 +4,7 @@
 package org.apache.maven.plugin.fatjar;
 
 /**
- * @author �  <ychao@bankcomm.com>
+ * @author �  <ychao@bankcomm.com>
  *
  * 2010-1-23
  */
@@ -15,6 +15,8 @@ import org.apache.maven.archiver.MavenArchiver;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.plexus.archiver.jar.JarArchiver;
@@ -30,59 +32,45 @@ public abstract class AbstractJarMojo extends AbstractMojo {
 
 	/**
 	 * List of files to include. Specified as fileset patterns.
-	 * 
-	 * @parameter
 	 */
+	@Parameter
 	protected String[] includes;
 
 	/**
 	 * List of files to exclude. Specified as fileset patterns.
-	 * 
-	 * @parameter
 	 */
+	@Parameter
 	protected String[] excludes;
 
 	/**
 	 * Directory containing the generated JAR.
-	 * 
-	 * @parameter role="${project.build.directory}"
-	 * @required
 	 */
+	@Parameter(defaultValue = "${project.build.directory}", required = true)
 	protected File outputDirectory;
 
 	/**
 	 * Name of the generated JAR.
-	 * 
-	 * @parameter alias="jarName" role="${jar.finalName}"
-	 *            default-value="${project.build.finalName}"
-	 * @required
 	 */
+	@Parameter(defaultValue="${project.build.finalName}", alias="jarName", required=true, property = "jar.finalName")
 	protected String finalName;
 
 	/**
 	 * The Jar archiver.
 	 * 
-	 * @parameter 
-	 *            role="${component.org.codehaus.plexus.archiver.Archiver}" roleHint="jar"
-	 * @required
 	 */
+	@Component(role = org.codehaus.plexus.archiver.Archiver.class, hint = "jar")
 	protected JarArchiver jarArchiver;
 
 	/**
 	 * The Maven session.
-	 *
-	 * @parameter role="${session}"
-	 * @readonly
 	 */
+	@Parameter(defaultValue = "${session}", readonly = true)
 	protected MavenSession session;
 
 	/**
 	 * The Maven project.
-	 * 
-	 * @parameter role="${project}"
-	 * @required
-	 * @readonly
 	 */
+	@Parameter(defaultValue = "${project}", required = true, readonly = true)
 	protected MavenProject project;
 
 	/**
@@ -91,44 +79,37 @@ public abstract class AbstractJarMojo extends AbstractMojo {
 	 * See <a
 	 * href="http://maven.apache.org/shared/maven-archiver/index.html">the
 	 * documentation for Maven Archiver</a>.
-	 * 
-	 * @parameter
 	 */
+	@Parameter
 	protected MavenArchiveConfiguration archive = new MavenArchiveConfiguration();
 
 	/**
 	 * Path to the default MANIFEST file to use. It will be used if
 	 * <code>useDefaultManifestFile</code> is set to <code>true</code>.
 	 * 
-	 * @parameter 
-	 *            role="${project.build.outputDirectory}/META-INF/MANIFEST.MF"
-	 * @required
-	 * @readonly
 	 * @since 2.2
 	 */
+	@Parameter(defaultValue = "${project.build.outputDirectory}/META-INF/MANIFEST.MF", required = true, readonly = true)
 	protected File defaultManifestFile;
 
 	/**
 	 * Set this to <code>true</code> to enable the use of the
 	 * <code>defaultManifestFile</code>.
 	 * 
-	 * @parameter role="${jar.useDefaultManifestFile}"
-	 *            default-value="false"
-	 * 
 	 * @since 2.2
 	 */
+	@Parameter(defaultValue = "false", property = "jar.useDefaultManifestFile")
 	protected boolean useDefaultManifestFile;
 
 	/**
-	 * @component
 	 */
+	@Component
 	protected MavenProjectHelper projectHelper;
 
 	/**
 	 * Whether creating the archive should be forced.
-	 * 
-	 * @parameter role="${jar.forceCreation}" default-value="false"
 	 */
+	@Parameter(property = "jar.forceCreation", defaultValue = "false")
 	protected boolean forceCreation;
 
 	/**

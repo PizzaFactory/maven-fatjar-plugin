@@ -6,12 +6,13 @@ import java.util.Set;
 
 import org.apache.maven.archiver.ManifestConfiguration;
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.DefaultArtifact;
-import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.artifact.versioning.VersionRange;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.codehaus.plexus.util.FileUtils;
 
 /**
@@ -19,56 +20,51 @@ import org.codehaus.plexus.util.FileUtils;
  * 
  * @author � <ychao@bankcomm.com> 2010-1-23
  * 
- * @goal fatjar
- * @phase package
- * @requiresDependencyResolution runtime
  */
+@Mojo(name = "fatjar", defaultPhase = LifecyclePhase.PACKAGE, requiresDependencyResolution = ResolutionScope.RUNTIME)
 public class FatjarMojo extends AbstractJarMojo {
 
 	/**
 	 * Local maven repository.
-	 * 
-	 * @parameter role="${localRepository}"
-	 * @required
-	 * @readonly
 	 */
+	@Parameter(defaultValue = "${localRepository}", required = true, readonly = true)
 	private ArtifactRepository localRepository;
 
 	/**
-	 * @parameter role="${project.build.outputDirectory}"
 	 */
+	@Parameter(defaultValue = "${project.build.outputDirectory}")
 	private File classesDirectory;
 
 	/**
 	 * Classifier to add to the artifact generated. If given, the artifact will
 	 * be an attachment instead.
-	 * 
-	 * @parameter
 	 */
-	private String classifier = "fatjar";
+	@Parameter(defaultValue = "fatjar")
+	private String classifier;
 
 	/**
-	 * @parameter role="${fatjar.classpathPrefix}"
 	 */
-	private String classpathPrefix = "";
+	@Parameter(property = "fatjar.classpathPrefix")
+	private String classpathPrefix;
 
 	/**
-	 * @parameter role="${fatjar.mainClass}"
 	 */
+	@Parameter(property = "fatjar.mainClass")
 	private String mainClass;
 
 	private final static String BOOT_MAIN_CLASS = "org.inframesh.bootjar.Boot";
 
 	/**
-	 * @parameter role="${fatjar.bootable}"
 	 */
+	@Parameter(property = "fatjar.bootable")
 	private boolean bootable = false;
 
 	/**
-	 * @parameter role="${fatjar.deployDirectory}"
 	 */
+	@Parameter(property = "fatjar.deployDirectory")
 	private File deployDirectory;
 
+	@Override
 	public void execute() throws MojoExecutionException {
 		copyDependencies();
 
@@ -186,6 +182,7 @@ public class FatjarMojo extends AbstractJarMojo {
 		}
 	}
 
+	@Override
 	protected String getClassifier() {
 		return classifier;
 	}
@@ -193,6 +190,7 @@ public class FatjarMojo extends AbstractJarMojo {
 	/**
 	 * @return type of the generated artifact
 	 */
+	@Override
 	protected String getType() {
 		return "jar";
 	}
@@ -200,6 +198,7 @@ public class FatjarMojo extends AbstractJarMojo {
 	/**
 	 * Return the main classes directory, so it's used as the root of the jar.
 	 */
+	@Override
 	protected File getClassesDirectory() {
 		return classesDirectory;
 	}
