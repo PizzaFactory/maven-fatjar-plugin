@@ -49,7 +49,7 @@
   
   <distributionManagement>
 	  <snapshotRepository>
-	    <id>nexus</id>
+	    <id>builder.monami-ya.com</id>
 	    <url>http://builder.monami-ya.com:8080/nexus/content/repositories/snapshots/</url>
 	  </snapshotRepository>
   </distributionManagement>
