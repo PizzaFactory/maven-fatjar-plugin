@@ -102,6 +102,12 @@ public abstract class AbstractJarMojo extends AbstractMojo {
 	protected boolean useDefaultManifestFile;
 
 	/**
+	 * 
+	 */
+	@Parameter(defaultValue = "", property = "jar.classpathPrefix")
+	protected String classpathPrefix;
+
+	/**
 	 */
 	@Component
 	protected MavenProjectHelper projectHelper;
@@ -189,7 +195,7 @@ public abstract class AbstractJarMojo extends AbstractMojo {
 								+ existingManifest.getPath());
 				archive.setManifestFile(existingManifest);
 			}
-
+			archive.getManifest().setClasspathPrefix(classpathPrefix);
 			archiver.createArchive(session, project, archive);
 
 			return jarFile;
